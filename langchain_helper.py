@@ -5,11 +5,18 @@ from langchain.chains import SequentialChain
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # This loads the .env file
+try:
+    import streamlit as st
+    togetherapi_key = st.secrets["TOGETHER_API_KEY"]
+except:
+    # fallback for local .env if running locally
+    from dotenv import load_dotenv
+    load_dotenv()
+    togetherapi_key = os.getenv("TOGETHER_API_KEY")
 
-togetherapi_key = os.getenv("TOGETHER_API_KEY")
 if not togetherapi_key:
     raise ValueError("Missing TOGETHER_API_KEY")
+
 
 # Load Mistral Model
 llm = Together(
