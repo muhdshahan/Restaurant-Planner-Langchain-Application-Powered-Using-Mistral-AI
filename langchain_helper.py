@@ -1,11 +1,15 @@
-from secret_key import togetherapi_key
 from langchain_community.llms import Together
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain.chains import SequentialChain
-
+from dotenv import load_dotenv
 import os
-os.environ['TOGETHER_API_KEY'] = togetherapi_key # set together api key
+
+load_dotenv()  # This loads the .env file
+
+togetherapi_key = os.getenv("TOGETHER_API_KEY")
+if not togetherapi_key:
+    raise ValueError("Missing TOGETHER_API_KEY")
 
 # Load Mistral Model
 llm = Together(

@@ -1,5 +1,5 @@
 # Ignore secrets
-secret_key.py
+.env
 
 # Ignore virtual environment
 resenv/
